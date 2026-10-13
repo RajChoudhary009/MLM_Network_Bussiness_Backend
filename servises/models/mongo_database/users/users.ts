@@ -26,7 +26,8 @@ const userSchema = new Schema<IUser>(
 
         password: {
             type: String,
-            required: true
+            required: true,
+            select: false
         },
 
         referralCode: {
@@ -60,28 +61,12 @@ const userSchema = new Schema<IUser>(
             required: true
         },
 
-        address: {
-            type: {
-                house: {
-                    type: String
-                },
-                street: {
-                    type: String
-                },
-                city: {
-                    type: String
-                },
-                state: {
-                    type: String
-                },
-                pincode: {
-                    type: String
-                }
-            },
-            default: null
+        walletBalance: {
+            type: Number,
+            default: 0
         },
 
-        walletBalance: {
+        walletBalance2: {
             type: Number,
             default: 0
         },
@@ -101,6 +86,11 @@ const userSchema = new Schema<IUser>(
             default: 0
         },
 
+        currentTeamMilestone: {
+            type: Number,
+            default: 0
+        },
+
         completedSales: {
             type: Number,
             default: 0
@@ -115,8 +105,24 @@ const userSchema = new Schema<IUser>(
         },
     },
     {
-        timestamps: true
+        timestamps: true,
+        toJSON: { virtuals: true,  },
+        toObject: { virtuals: true, }
     }
 );
+
+// Address
+userSchema.virtual("addresses", {
+    ref: "Address",
+    localField: "_id",
+    foreignField: "userId"
+});
+
+// Transactions
+userSchema.virtual("transactions", {
+    ref: "Transaction",
+    localField: "_id",
+    foreignField: "userId"
+});
 
 export const User = mongoose.model<IUser>("User", userSchema);

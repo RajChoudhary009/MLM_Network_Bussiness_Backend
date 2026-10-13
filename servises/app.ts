@@ -1,5 +1,7 @@
 import express from "express";
 import { testDbConnection, connectDB } from "./config/database";
+import dotenv from "dotenv";
+dotenv.config();
 
 import productRoute from "./routes/productLink/productLink"
 import userRoute from "./routes/user/users"

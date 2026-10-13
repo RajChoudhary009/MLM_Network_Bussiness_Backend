@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only servises/app.ts"
+    "start": "ts-node-dev --respawn --transpile-only servises/app.ts",
+    "migration": "ts-node --transpile-only ./servises/Migration/Migration_runner.ts"
   },
   "keywords": [],
   "author": "",
